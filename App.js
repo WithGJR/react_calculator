@@ -13,9 +13,11 @@ export default class App extends Component {
     this.state = { 
       result: 0,
       operand: '',
+      operator: '',
       operandStack: []
     };
     this.inputOperand = this.inputOperand.bind(this);
+    this.changeOperator = this.changeOperator.bind(this);
   }
 
   inputOperand(n) {
@@ -27,6 +29,14 @@ export default class App extends Component {
       return;
     }
     this.setState({ operand: this.state.operand+n });
+  }
+
+  changeOperator(operator) {
+    if (this.operand !== '') {
+      this.setState({ operandStack: this.state.operandStack.concat(operand) });
+    }
+
+    this.setState({ operator });
   }
 
   render() {
@@ -47,7 +57,7 @@ export default class App extends Component {
             <TouchableOpacity style={styles.numberButton} onPress={() => { this.inputOperand('9'); }}>
               <Text stlye={styles.numberButtonText}>9</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.operationButton} onPress={() => {}}>
+            <TouchableOpacity style={styles.operationButton} onPress={() => { this.changeOperator('/'); }}>
               <Text stlye={styles.operationButtonText}>/</Text>
             </TouchableOpacity>
           </View>
@@ -62,8 +72,8 @@ export default class App extends Component {
             <TouchableOpacity style={styles.numberButton} onPress={() => { this.inputOperand('6'); }}>
               <Text stlye={styles.numberButtonText}>6</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.operationButton} onPress={() => {}}>
-              <Text stlye={styles.operationButtonText}>X</Text>
+            <TouchableOpacity style={styles.operationButton} onPress={() => { this.changeOperator('x'); }}>
+              <Text stlye={styles.operationButtonText}>x</Text>
             </TouchableOpacity>
           </View>
           
@@ -77,7 +87,7 @@ export default class App extends Component {
             <TouchableOpacity style={styles.numberButton} onPress={() => { this.inputOperand('3'); }}>
               <Text stlye={styles.numberButtonText}>3</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.operationButton} onPress={() => {}}>
+            <TouchableOpacity style={styles.operationButton} onPress={() => { this.changeOperator('-'); }}>
               <Text stlye={styles.operationButtonText}>-</Text>
             </TouchableOpacity>
           </View>
@@ -89,7 +99,7 @@ export default class App extends Component {
               <TouchableOpacity style={styles.quarterButton} onPress={() => {}}>
                 <Text stlye={styles.numberButtonText}>.</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.operationButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.operationButton} onPress={() => { this.changeOperator('+'); }}>
                 <Text stlye={styles.operationButtonText}>+</Text>
               </TouchableOpacity>
               
